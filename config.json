@@ -1,0 +1,18 @@
+{
+  "domains": [
+    {
+      "name": "mineev.me",
+      "rate": 10
+    },
+    {
+      "name": "vgorle.com",
+      "rate": 50
+    },
+    {
+      "name": "clientsiders.ru",
+      "price_per_day": 10
+    }
+  ],
+  "price_per_day": 5,
+  "rate": 2
+}
