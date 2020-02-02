@@ -8,7 +8,6 @@ require (
 	github.com/domainr/whois v0.0.0-20180714175948-975c7833b02e
 	github.com/domainr/whoistest v0.0.0-20180714175718-26cad4b7c941 // indirect
 	github.com/jessevdk/go-flags v1.4.0
-	github.com/likexian/gokit v0.21.11
 	github.com/likexian/whois-parser-go v1.10.2
 	github.com/nbio/st v0.0.0-20140626010706-e9e8d9816f32 // indirect
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect

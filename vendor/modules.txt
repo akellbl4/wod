@@ -1,34 +1,49 @@
+# bou.ke/monkey v1.0.2
+bou.ke/monkey
 # github.com/PuerkitoBio/goquery v1.5.0
 github.com/PuerkitoBio/goquery
 # github.com/andybalholm/cascadia v1.1.0
 github.com/andybalholm/cascadia
+# github.com/davecgh/go-spew v1.1.0
+github.com/davecgh/go-spew/spew
 # github.com/domainr/whois v0.0.0-20180714175948-975c7833b02e
 github.com/domainr/whois
 # github.com/jessevdk/go-flags v1.4.0
 github.com/jessevdk/go-flags
+# github.com/likexian/gokit v0.21.11
+github.com/likexian/gokit/assert
+github.com/likexian/gokit/xslice
+# github.com/likexian/whois-parser-go v1.10.2
+github.com/likexian/whois-parser-go
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
 # github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca
 github.com/saintfish/chardet
+# github.com/stretchr/testify v1.4.0
+github.com/stretchr/testify/assert
 # github.com/zonedb/zonedb v1.0.2550
 github.com/zonedb/zonedb
 # golang.org/x/net v0.0.0-20191209160850-c0dbc17a3553
-golang.org/x/net/html/charset
 golang.org/x/net/html
 golang.org/x/net/html/atom
+golang.org/x/net/html/charset
 # golang.org/x/text v0.3.2
 golang.org/x/text/encoding
-golang.org/x/text/transform
 golang.org/x/text/encoding/charmap
 golang.org/x/text/encoding/htmlindex
-golang.org/x/text/encoding/internal/identifier
 golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/internal/identifier
 golang.org/x/text/encoding/japanese
 golang.org/x/text/encoding/korean
 golang.org/x/text/encoding/simplifiedchinese
 golang.org/x/text/encoding/traditionalchinese
 golang.org/x/text/encoding/unicode
-golang.org/x/text/language
-golang.org/x/text/internal/utf8internal
-golang.org/x/text/runes
 golang.org/x/text/internal/language
 golang.org/x/text/internal/language/compact
 golang.org/x/text/internal/tag
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/language
+golang.org/x/text/runes
+golang.org/x/text/transform
+# gopkg.in/yaml.v2 v2.2.2
+gopkg.in/yaml.v2
