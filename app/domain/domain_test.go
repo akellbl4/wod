@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"bou.ke/monkey"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -19,9 +20,10 @@ func timeMustBeParsed(date string) time.Time {
 
 func TestGetDaysFromCreation(t *testing.T) {
 	var testSet = []struct{
-		name  string
-		date  time.Time
+		name   string
+		date   time.Time
 		result int
+		patch  bool
 	}{
 		{
 			name: "today",
@@ -30,14 +32,20 @@ func TestGetDaysFromCreation(t *testing.T) {
 		},
 		{
 			name: "unix zero",
-			date: timeMustBeParsed("1970-01-01T00:00:00.000Z"),
+			date: time.Date(1970, time.January, 1, 0, 0, 0, 0, time.UTC),
 			result: 18294,
+			patch: true,
 		},
 	}
 
-	for _, item := range testSet {
-		t.Run(item.name, func(t *testing.T) {
-			assert.Equal(t, item.result, GetDaysFromCreation(item.date))
+	for _, tt := range testSet {
+		t.Run(tt.name, func(t *testing.T) {
+			if tt.patch {
+				wayback := time.Date(2020, time.February, 2, 0, 0, 0, 0, time.UTC)
+				patch := monkey.Patch(time.Now, func() time.Time { return wayback })
+				defer patch.Unpatch()
+			}
+			assert.Equal(t, tt.result, GetDaysFromCreation(tt.date))
 		})
 	}
 }

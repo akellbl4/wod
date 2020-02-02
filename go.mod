@@ -3,6 +3,7 @@ module github.com/akellbl4/wod
 go 1.13
 
 require (
+	bou.ke/monkey v1.0.2
 	github.com/andybalholm/cascadia v1.1.0 // indirect
 	github.com/domainr/whois v0.0.0-20180714175948-975c7833b02e
 	github.com/domainr/whoistest v0.0.0-20180714175718-26cad4b7c941 // indirect
