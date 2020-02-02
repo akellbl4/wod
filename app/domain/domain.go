@@ -1,9 +1,6 @@
 package domain
 
 import (
-	"math"
-	"time"
-
 	"github.com/domainr/whois"
 	whoisparser "github.com/likexian/whois-parser-go"
 )
@@ -29,12 +26,4 @@ func GetDomainInfo(domain string) (whoisparser.WhoisInfo, error) {
 	}
 
 	return domainInfo, nil
-}
-
-// GetDaysFromCreation get days from creation date
-func GetDaysFromCreation(creationDate time.Time) int {
-	hours := time.Since(creationDate).Hours()
-	days := int(math.Ceil(hours / 24))
-
-	return days
 }

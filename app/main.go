@@ -12,6 +12,7 @@ import (
 
 	"github.com/akellbl4/wod/app/config"
 	"github.com/akellbl4/wod/app/domain"
+	"github.com/akellbl4/wod/app/helpers"
 )
 
 // Opts with all cli commands and flags
@@ -20,6 +21,7 @@ type Opts struct {
 	TemplatePath    string `long:"template" short:"t" env:"WOD_TEMPLATE_PATH" description:"Path to html template" default:"./template.html.tmpl"`
 	DestinationPath string `long:"destination" short:"d" env:"WOD_DESTINATION" description:"Path to destination directory" default:"./web"`
 }
+
 // TemplateData with all template variables
 type TemplateData struct {
 	Domain           string
@@ -43,7 +45,7 @@ func main() {
 	}
 
 	tmpl := template.Must(template.ParseFiles(opts.TemplatePath))
-	err = creationDestinationFolder(opts.DestinationPath)
+	err = helpers.CreateFolder(opts.DestinationPath)
 
 	if err != nil {
 		log.Printf("error on creation destination folder: %v", err)
@@ -56,20 +58,6 @@ func main() {
 		log.Printf("error on creation pages: %v", err)
 		os.Exit(1)
 	}
-}
-
-func creationDestinationFolder(path string) error {
-	_, err := os.Stat(path)
-
-	if os.IsNotExist(err) {
-		err = os.Mkdir(path, os.ModePerm)
-
-		if (err != nil) {
-			return err
-		}
-	}
-
-	return err
 }
 
 func createPages(cfg config.Config, tmpl *template.Template, destPath string) error {
@@ -102,7 +90,7 @@ func createPages(cfg config.Config, tmpl *template.Template, destPath string) er
 			return err
 		}
 
-		days := domain.GetDaysFromCreation(creationDate)
+		days := helpers.GetDaysFromDate(creationDate)
 		price := days * item.PricePerDay * item.Rate
 		file, err := os.Create(filepath.Join(destPath, "/", item.Name+".html"))
 
@@ -121,7 +109,12 @@ func createPages(cfg config.Config, tmpl *template.Template, destPath string) er
 			return err
 		}
 
-		file.Close()
+		err = file.Close()
+
+		if err != nil {
+			return err
+		}
+
 		log.Printf("domain: %s, price: %v\n", item.Name, price)
 	}
 

@@ -1,6 +1,7 @@
-package domain
+package helpers
 
 import (
+	"os"
 	"testing"
 	"time"
 
@@ -8,33 +9,33 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func timeMustBeParsed(date string) time.Time {
-	t, err := time.Parse(time.RFC3339, date)
+func TestCreateFolder(t *testing.T) {
+	tmpDir := os.TempDir()
+	err := CreateFolder(tmpDir)
 
-	if err != nil {
-		panic(err)
-	}
+	assert.NoError(t, err)
 
-	return t
+	err = CreateFolder(tmpDir)
+	assert.NoError(t, err)
 }
 
-func TestGetDaysFromCreation(t *testing.T) {
-	var testSet = []struct{
+func TestGetDaysFromDate(t *testing.T) {
+	var testSet = []struct {
 		name   string
 		date   time.Time
 		result int
 		patch  bool
 	}{
 		{
-			name: "today",
-			date: time.Now(),
+			name:   "today",
+			date:   time.Now(),
 			result: 1,
 		},
 		{
-			name: "unix zero",
-			date: time.Unix(0, 0),
+			name:   "unix zero",
+			date:   time.Unix(0, 0),
 			result: 18294,
-			patch: true,
+			patch:  true,
 		},
 	}
 
@@ -45,7 +46,7 @@ func TestGetDaysFromCreation(t *testing.T) {
 				patch := monkey.Patch(time.Now, func() time.Time { return wayback })
 				defer patch.Unpatch()
 			}
-			assert.Equal(t, tt.result, GetDaysFromCreation(tt.date))
+			assert.Equal(t, tt.result, GetDaysFromDate(tt.date))
 		})
 	}
 }
