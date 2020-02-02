@@ -32,7 +32,7 @@ func TestGetDaysFromCreation(t *testing.T) {
 		},
 		{
 			name: "unix zero",
-			date: time.Date(1970, time.January, 1, 0, 0, 0, 0, time.UTC),
+			date: time.Unix(0, 0),
 			result: 18294,
 			patch: true,
 		},

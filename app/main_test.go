@@ -25,9 +25,10 @@ func Test_createPages(t *testing.T) {
 						Name: "",
 					},
 				},
+				PricePerDay: 1,
 			},
 			tmpl: &template.Template{},
-			errMsg: "Domain name not defined",
+			errMsg: "domain name not defined for record #0 in config",
 		},
 		{
 			name: "with empty price per day error",
@@ -39,7 +40,7 @@ func Test_createPages(t *testing.T) {
 				},
 			},
 			tmpl: &template.Template{},
-			errMsg: "Price per day for example.com domain not defined, global price also, not defined",
+			errMsg: "price per day for example.com domain not defined for record #0 in config, global price also, not defined",
 		},
 		{
 			name: "with bad domain name",

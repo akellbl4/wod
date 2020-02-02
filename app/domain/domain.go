@@ -33,8 +33,8 @@ func GetDomainInfo(domain string) (whoisparser.WhoisInfo, error) {
 
 // GetDaysFromCreation get days from creation date
 func GetDaysFromCreation(creationDate time.Time) int {
-	now := time.Now()
-	days := int(math.Ceil(now.Sub(creationDate).Hours() / 24))
+	hours := time.Since(creationDate).Hours()
+	days := int(math.Ceil(hours / 24))
 
 	return days
 }

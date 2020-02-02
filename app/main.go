@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
-	flags "github.com/jessevdk/go-flags"
+	"github.com/jessevdk/go-flags"
 
 	"github.com/akellbl4/wod/app/config"
 	"github.com/akellbl4/wod/app/domain"
@@ -31,12 +31,14 @@ func main() {
 	var opts Opts
 
 	if _, err := flags.Parse(&opts); err != nil {
+		log.Printf("error on reading flags: %v", err)
 		os.Exit(1)
 	}
 
 	cfg, err := config.Parse(opts.ConfigPath)
 
 	if err != nil {
+		log.Printf("error on parse config: %v", err)
 		os.Exit(1)
 	}
 
@@ -44,13 +46,14 @@ func main() {
 	err = creationDestinationFolder(opts.DestinationPath)
 
 	if err != nil {
-		log.Printf("Error on creation destination folder")
+		log.Printf("error on creation destination folder: %v", err)
 		os.Exit(1)
 	}
 
 	err = createPages(cfg, tmpl, opts.DestinationPath)
 
 	if err != nil {
+		log.Printf("error on creation pages: %v", err)
 		os.Exit(1)
 	}
 }
@@ -59,16 +62,20 @@ func creationDestinationFolder(path string) error {
 	_, err := os.Stat(path)
 
 	if os.IsNotExist(err) {
-		os.Mkdir(path, os.ModePerm)
+		err = os.Mkdir(path, os.ModePerm)
+
+		if (err != nil) {
+			return err
+		}
 	}
 
 	return err
 }
 
 func createPages(cfg config.Config, tmpl *template.Template, destPath string) error {
-	for _, item := range cfg.Domains {
+	for i, item := range cfg.Domains {
 		if item.Name == "" {
-			return fmt.Errorf("Domain name not defined")
+			return fmt.Errorf("domain name not defined for record #%d in config", i)
 		}
 
 		if item.PricePerDay == 0 {
@@ -76,7 +83,7 @@ func createPages(cfg config.Config, tmpl *template.Template, destPath string) er
 		}
 
 		if item.PricePerDay == 0 {
-			return fmt.Errorf("Price per day for %s domain not defined, global price also, not defined", item.Name)
+			return fmt.Errorf("price per day for %s domain not defined for record #%d in config, global price also, not defined", item.Name, i)
 		}
 
 		if item.Rate == 0 {
@@ -98,7 +105,6 @@ func createPages(cfg config.Config, tmpl *template.Template, destPath string) er
 		days := domain.GetDaysFromCreation(creationDate)
 		price := days * item.PricePerDay * item.Rate
 		file, err := os.Create(filepath.Join(destPath, "/", item.Name+".html"))
-		defer file.Close()
 
 		if err != nil {
 			return err
@@ -115,7 +121,8 @@ func createPages(cfg config.Config, tmpl *template.Template, destPath string) er
 			return err
 		}
 
-		log.Printf("Domain: %s, price: %v\n", item.Name, price)
+		file.Close()
+		log.Printf("domain: %s, price: %v\n", item.Name, price)
 	}
 
 	return nil

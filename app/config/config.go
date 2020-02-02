@@ -13,19 +13,16 @@ type Domain struct {
 	Rate        int    `json:"rate,omitempty"`
 }
 
-// Config struct pis data about domais
-// and common values for domains
-// without overrided PricePerDay and Rate
+// Config struct is data about domains and common values for domains without overrided PricePerDay and Rate
 type Config struct {
 	Domains     []Domain `json:"domains"`
 	PricePerDay int      `json:"price_per_day"`
 	Rate        int      `json:"rate"`
 }
 
-// Parse returns content of file
-// which was readed by provided filepath
+// Parse returns content of file which was read by provided filepath
 func Parse(filepath string) (config Config, err error) {
-	log.Printf("Read config file: %q\n", filepath)
+	log.Printf("read config file: %q\n", filepath)
 	configBytes, err := ioutil.ReadFile(filepath)
 
 	if err != nil {
