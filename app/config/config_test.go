@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestMain(t *testing.T) {
+func TestParse(t *testing.T) {
 	var testSet = []struct{
 		name   string
 		path   string
