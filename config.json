@@ -1,0 +1,14 @@
+{
+  "domains": [
+    {
+      "name": "google.com",
+      "rate": 10
+    },
+    {
+      "name": "apple.com",
+      "rate": 50
+    }
+  ],
+  "price_per_day": 5,
+  "rate": 2
+}
